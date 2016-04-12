@@ -14,22 +14,79 @@ this.onresize=function(){
 }
 
 svg.onclick=function(e) {
-	console.log(e.target);
+	console.log(e.target)
 }
 
-function Triangle(p1, p2, p3) {
-	this.p1=p1
-	this.p2=p2
-	this.p3=p3
+function Point(x,y){
+	this.x=x
+	this.y=y
 }
 
-Triangle.prototype.render = function() {
-	if(this.svgTriangle) {
-		this.svgTriangle=document.createElementNS(svgNS,"g")
-		svgTriangle.appendChild(this.svgP1=document.createElementNS(svgNS,"circle"))
-		svgTriangle.appendChild(this.svgP2=document.createElementNS(svgNS,"circle"))
-		svgTriangle.appendChild(this.svgP3=document.createElementNS(svgNS,"circle"))
-		svgTriangle.appendChild(this.svgPath=document.createElementNS(svgNS,"path"))
-		svg.appendChild(svgTriangle)
+Point.random=function() {
+	return new Point((R()*w)|0,(R()*h)|0)
+}
+
+Point.prototype.toString=function(){
+	with(this)return x+","+y
+}
+
+function Triangle(p1, p2, p3){
+	this.p=[p1,p2,p3]
+	this.p.map(function(p){
+		return p instanceof Point?p:
+			(p instanceof Array?new Point(p[0],p[1]):undefined)
+	})
+	if(this.isDefined())this.create()
+}
+
+Triangle.prototype.isDefined=function(){
+	with(this)return(p[0]&&p[1]&&p[2])
+}
+
+Triangle.prototype.create=function(){
+	if(this.svgTriangle || !this.isDefined())return
+	this.svgTriangle=document.createElementNS(svgNS,"g")
+	this.svgPoints=[
+		document.createElementNS(svgNS,"circle"),
+		document.createElementNS(svgNS,"circle"),
+		document.createElementNS(svgNS,"circle")
+	]
+	with(this){
+		svgPath=document.createElementNS(svgNS,"path")
+		svgPath.setAttribute("stroke", "white")
+		svgPath.setAttribute("stroke-width", "4")
+		svgTriangle.appendChild(svgPath)
+		this.svgPoints.forEach(function(p){
+			p.setAttribute("fill", "red")
+			p.setAttribute("r", "10")
+			svgTriangle.appendChild(p)
+		})
+		setPosition()
 	}
+	svg.appendChild(this.svgTriangle)
+}
+
+Triangle.prototype.addEventHandlers=function(){
+	var self=this
+	this.svgPoints.forEach(function(svgPoint){
+		// https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
+		svgPoint.addEventListener('mousedown', function(e){
+			// svgPoint.drag=true
+		})
+
+		svgPoint.addEventListener('mousemove', function(e){
+			// self.setPosition()
+		})
+
+	})
+}
+
+
+Triangle.prototype.setPosition=function(){
+	with(this)
+		svgPath.setAttribute("d","M"+p[0]+" L"+p[1]+" L"+p[2]+"Z"),
+		svgPoints.forEach(function(p){
+			p.setAttribute("x", p.x)
+			p.setAttribute("y", p.y)
+		})
 }
