@@ -98,18 +98,24 @@ function Triangle(p1,p2,p3){
 }
 
 Triangle.prototype.update=function(){
-	var t=this,p1=t.p[0],p2=t.p[1],p3=t.p[2],
-		c=p1.distanceTo(p2),
-		a=p1.distanceTo(p3),
-		b=p2.distanceTo(p3),
-		l=a+b+c,
-		s=l/2
-	t.path.setAttribute("d","M"+p1+" L"+p2+" L"+p3+"Z"),
-	t.gravPoint.x=(p1.x+p2.x+p3.x)/3,
-	t.gravPoint.y=(p1.y+p2.y+p3.y)/3,
+	//      C
+	//     /\
+	//   b/  \a
+	//   /    \
+	//  A------B
+	//      c
+	var t=this,A=t.p[0],B=t.p[1],C=t.p[2],
+		c=A.distanceTo(B),
+		a=C.distanceTo(B),
+		b=A.distanceTo(C),
+		u=a+b+c,
+		s=u/2
+	t.path.setAttribute("d","M"+A+" L"+B+" L"+C+"Z"),
+	t.gravPoint.x=(A.x+B.x+C.x)/3,
+	t.gravPoint.y=(A.y+B.y+C.y)/3,
 	attribs(t.innerCircle,{
-		"cx":Math.round((p1.x+p2.x+p3.x)/l)|0,
-		"cy":Math.round((p1.y+p2.y+p3.y)/l)|0,
+		"cx":Math.round((a*A.x+b*B.x+c*C.x)/u)|0,
+		"cy":Math.round((a*A.y+b*B.y+c*C.y)/u)|0,
 		"r" :Q((s-a)*(s-b)*(s-c)/s)
 	})
 }
