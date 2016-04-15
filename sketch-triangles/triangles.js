@@ -13,33 +13,44 @@ this.onresize=function(){
 	svg.setAttribute("viewBox", [0,0,w,h])
 }
 
-svg.onclick=function(e) {
-	console.log(e.target)
+function raiseEvent(el,type,obj){
+	var evt = document.createEvent("Event")
+	evt.initEvent(type,true,true)
+	evt.obj=obj
+	el.dispatchEvent(evt)
 }
 
-function Point(x,y, cont){
+function Point(x,y){
+	if(!(this instanceof Point))return new Point(x,y)
+	this.el=document.createElementNS(svgNS,"circle")
+	svg.appendChild(this.el)
 	this.x=x
 	this.y=y
-	this.el=document.createElementNS(svgNS,"circle")
-	this.el.setAttribute("fill", "red")
-	this.el.setAttribute("r", "10")
-	this.cont=cont||svg
-	this.cont.appendChild(this.el)
-	this.move()
+	var that=this
+	this.el.addEventListener("mousedown",function(){
+		that.drag=true;	
+	})
+	window.addEventListener("mousemove",function(e){
+		if(that.drag)that.x=e.clientX,that.y=e.clientY
+	})
+	this.el.addEventListener("mouseup",function(){
+		that.drag=false;
+	})
+
 }
+
+Object.defineProperty(Point.prototype,"x",{
+	get:function(){return parseFloat(this.el.getAttribute("cx"))},
+	set:function(val){this.el.setAttribute("cx",val);raiseEvent(this.el,"move",this)}
+})
+
+Object.defineProperty(Point.prototype,"y",{
+	get:function(){return this.el.getAttribute("cy")},
+	set:function(val){this.el.setAttribute("cy",val);raiseEvent(this.el,"move",this)}
+})
 
 Point.random=function() {
 	return new Point((R()*w)|0,(R()*h)|0)
-}
-
-Point.prototype.move=function(x,y){
-	if(x)this.x=x
-	if(y)this.y=y
-	this.el.setAttribute("x",x)
-	this.el.setAttribute("y",y)
-	var onMoveEvent = document.createEvent("Event")
-	event.initEvent('move',true,true)
-	this.el.dispatchEvent(onMoveEvent)
 }
 
 Point.prototype.toString=function(){
@@ -47,22 +58,29 @@ Point.prototype.toString=function(){
 }
 
 function Triangle(p1, p2, p3){
-	var t=this
+	var i,t=this
+	if(!(t instanceof Triangle))return new Triangle(p1, p2, p3)
 	t.p=[p1,p2,p3]
-	t.el=document.createElementNS(svgNS,"g")
-	t.p.map(function(p){
-		if(p instanceof Point==false){
-			if(p instanceof Array)p=new Point(p[0],p[1],t.el)
+	for(i=3;i--;){
+		if(t.p[i] instanceof Point)continue
+		if(t.p[i] instanceof Array) {
+			t.p[i]=new Point(t.p[i][0],t.p[i][1])
 		} else {
-			p.cont.removeChild(p.el)
-			t.el.appendChild(p.el)
+			t.p[i]=Point.random()
 		}
-	})
+	}
 	t.path=document.createElementNS(svgNS,"path")
-	t.path.setAttribute("stroke", "white")
-	t.path.setAttribute("stroke-width", "4")
+	svg.insertBefore(t.path,svg.querySelector('circle'))
+	t.updatePath()
+	for(i=3;i--;)
+		t.p[i].el.addEventListener("move", function(e){
+			t.updatePath()
+		})
 }
 
 Triangle.prototype.updatePath=function(){
-		t.path.setAttribute("d","M"+p[0]+" L"+p[1]+" L"+p[2]+"Z"),
+	with(this)path.setAttribute("d","M"+p[0]+" L"+p[1]+" L"+p[2]+"Z")
 }
+
+t=Triangle()
+

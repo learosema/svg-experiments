@@ -9,3 +9,14 @@ svg{
 	height:100vh;
 }
 
+svg circle {
+	fill: red;
+	r: 10;
+	cursor: pointer;
+}
+
+svg path {
+	stroke-width: 4;
+	stroke: white;
+	fill: none;
+}
