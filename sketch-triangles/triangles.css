@@ -9,10 +9,22 @@ svg{
 	height:100vh;
 }
 
-svg circle {
+svg circle.grav-point {
+	fill: silver;
+	r: 5;
+}
+
+svg circle.draggable {
 	fill: red;
 	r: 10;
 	cursor: pointer;
+}
+
+svg circle.inner {
+	stroke-width: 2;
+	stroke: purple;
+	fill: none;
+	display: none;
 }
 
 svg path {
