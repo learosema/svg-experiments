@@ -22,9 +22,8 @@ svg circle.draggable {
 
 svg circle.inner {
 	stroke-width: 2;
-	stroke: purple;
+	stroke: salmon;
 	fill: none;
-	display: none;
 }
 
 svg path {
