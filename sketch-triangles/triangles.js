@@ -108,8 +108,8 @@ Triangle.prototype.update=function(){
 	t.gravPoint.x=(p1.x+p2.x+p3.x)/3,
 	t.gravPoint.y=(p1.y+p2.y+p3.y)/3,
 	attribs(t.innerCircle,{
-		"cx":Math.round((p1.x+p2.x+p3.x)/3)|0,
-		"cy":Math.round((p1.y+p2.y+p3.y)/3)|0,
+		"cx":Math.round((p1.x+p2.x+p3.x)/l)|0,
+		"cy":Math.round((p1.y+p2.y+p3.y)/l)|0,
 		"r" :Q((s-a)*(s-b)*(s-c)/s)
 	})
 }
