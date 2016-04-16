@@ -98,7 +98,7 @@ function Triangle(A,B,C){
 	here=svg.querySelector('.draggable')
 	svg.insertBefore(t.path,here)
 	svg.insertBefore(t.innerCircle,here)
-	svg.insertBefore(t.outerCircle,here)
+	svg.insertBefore(t.circumCircle,here)
 	t.update()
 	for(i=3;i--;)
 		t.p[i].el.addEventListener("move", function(e){
