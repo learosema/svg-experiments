@@ -30,11 +30,11 @@ function raise(el,type){
 	el.dispatchEvent(evt)
 }
 
-function Point(x,y,role){
+function Point(x,y,role,title){
 	var t=this
 	if(!(this instanceof Point))return new Point(x,y,role)
 	if(role===undefined)role="draggable"
-	t.el=draw("circle",{"class":role})
+	t.el=draw("circle",{"class":role,"title":title})
 	svg.appendChild(this.el)
 	t.x=isNaN(x)?(R()*w)|0:x
 	t.y=isNaN(y)?(R()*h)|0:y
@@ -71,10 +71,11 @@ Point.prototype.toString=function(){
 	with(this)return x+","+y
 }
 
-function Triangle(p1,p2,p3){
+function Triangle(A,B,C){
 	var i,t=this,here
-	if(!(t instanceof Triangle))return new Triangle(p1, p2, p3)
-	t.p=[p1,p2,p3]
+	if(!(t instanceof Triangle))return new Triangle(A,B,C)
+	t.p=[A,B,C]
+	t.A=A,t.B=B,t.C=C
 	for(i=3;i--;){
 		if(t.p[i] instanceof Point)continue
 		if(t.p[i] instanceof Array) {
@@ -82,11 +83,13 @@ function Triangle(p1,p2,p3){
 		} else {
 			t.p[i]=Point()
 		}
+		t.p[i].el.setAttribute("title",String.fromCharCode(65+i))
 	}
-	t.gravPoint=Point((t.p[0].x+t.p[1].x+t.p[2].x)/3,
-					  (t.p[0].y+t.p[1].y+t.p[2].y)/3, "grav-point")
+	t.gravityPoint=Point((t.p[0].x+t.p[1].x+t.p[2].x)/3,
+					     (t.p[0].y+t.p[1].y+t.p[2].y)/3, "grav-point", "Gravity Point")
 	t.path=draw("path")
 	t.innerCircle=draw("circle",{"class":"inner"})
+
 	here=svg.querySelector('.draggable')
 	svg.insertBefore(t.path,here)
 	svg.insertBefore(t.innerCircle,here)
@@ -97,12 +100,14 @@ function Triangle(p1,p2,p3){
 		})
 }
 
+//Object.defineProperty(Triangle.prototype,"
+
 Triangle.prototype.update=function(){
 	//      C
-	//     /\
-	//   b/  \a
-	//   /    \
-	//  A------B
+	//     / \
+	//   b/   \a
+	//   /     \
+	//  A-------B
 	//      c
 	var t=this,A=t.p[0],B=t.p[1],C=t.p[2],
 		c=A.distanceTo(B),
@@ -111,8 +116,8 @@ Triangle.prototype.update=function(){
 		u=a+b+c,
 		s=u/2
 	t.path.setAttribute("d","M"+A+" L"+B+" L"+C+"Z"),
-	t.gravPoint.x=(A.x+B.x+C.x)/3,
-	t.gravPoint.y=(A.y+B.y+C.y)/3,
+	t.gravityPoint.x=(A.x+B.x+C.x)/3,
+	t.gravityPoint.y=(A.y+B.y+C.y)/3,
 	attribs(t.innerCircle,{
 		"cx":Math.round((a*A.x+b*B.x+c*C.x)/u)|0,
 		"cy":Math.round((a*A.y+b*B.y+c*C.y)/u)|0,
