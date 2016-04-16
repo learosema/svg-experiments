@@ -34,7 +34,7 @@ function Point(x,y,role){
 	var t=this
 	if(!(this instanceof Point))return new Point(x,y,role)
 	if(role===undefined)role="draggable"
-	t.el=draw("circle",{"class":role})
+	t.el=draw("circle",{"class":role, "r":role=="draggable"?10:5})
 	svg.appendChild(this.el)
 	t.x=isNaN(x)?(R()*w)|0:x
 	t.y=isNaN(y)?(R()*h)|0:y
@@ -67,6 +67,12 @@ Point.prototype.distanceTo=function(P,dx,dy) {
 	return Q(dx*dx+dy*dy)
 }
 
+Point.prototype.midPointTo=function(P,dx,dy) {
+	return {x:this.x+(P.x-this.x)/2,
+		    y:this.y+(P.y-this.y)/2}
+}
+
+
 Point.prototype.toString=function(){
 	with(this)return x+","+y
 }
@@ -75,7 +81,6 @@ function Triangle(A,B,C){
 	var i,t=this,here
 	if(!(t instanceof Triangle))return new Triangle(A,B,C)
 	t.p=[A,B,C]
-	t.A=A,t.B=B,t.C=C
 	for(i=3;i--;){
 		if(t.p[i] instanceof Point)continue
 		if(t.p[i] instanceof Array) {
@@ -84,22 +89,22 @@ function Triangle(A,B,C){
 			t.p[i]=Point()
 		}
 	}
-	t.gravityPoint=Point((t.p[0].x+t.p[1].x+t.p[2].x)/3,
-					     (t.p[0].y+t.p[1].y+t.p[2].y)/3, "grav-point")
 	t.path=draw("path")
-	t.innerCircle=draw("circle",{"class":"inner"})
-
+	t.gravityPoint=Point(-999,-999, "grav-point")
+	t.innerPoint  =Point(-999,-999, "inner-point")
+	t.innerCircle =draw("circle",{"class":"inner"})
+	t.circumPoint =Point(-999,-999, "circum-point")
+	t.circumCircle=draw("circle",{"class":"circum"})
 	here=svg.querySelector('.draggable')
 	svg.insertBefore(t.path,here)
 	svg.insertBefore(t.innerCircle,here)
+	svg.insertBefore(t.outerCircle,here)
 	t.update()
 	for(i=3;i--;)
 		t.p[i].el.addEventListener("move", function(e){
 			t.update()
 		})
 }
-
-//Object.defineProperty(Triangle.prototype,"c"
 
 Triangle.prototype.update=function(){
 	//      C
@@ -108,7 +113,8 @@ Triangle.prototype.update=function(){
 	//   /     \
 	//  A-------B
 	//      c
-	var t=this,A=t.p[0],B=t.p[1],C=t.p[2],
+	var t=this,D,
+		A=t.p[0],B=t.p[1],C=t.p[2],
 		c=A.distanceTo(B),
 		a=C.distanceTo(B),
 		b=A.distanceTo(C),
@@ -118,9 +124,23 @@ Triangle.prototype.update=function(){
 	t.gravityPoint.x=(A.x+B.x+C.x)/3,
 	t.gravityPoint.y=(A.y+B.y+C.y)/3,
 	attribs(t.innerCircle,{
-		"cx":Math.round((a*A.x+b*B.x+c*C.x)/u)|0,
-		"cy":Math.round((a*A.y+b*B.y+c*C.y)/u)|0,
+		"cx":(t.innerPoint.x=Math.round((a*A.x+b*B.x+c*C.x)/u)|0),
+		"cy":(t.innerPoint.y=Math.round((a*A.y+b*B.y+c*C.y)/u)|0),
 		"r" :Q((s-a)*(s-b)*(s-c)/s)
+	})
+	D=(A.x*(B.y-C.y)+B.x*(C.y-A.y)+C.x*(A.y-B.y))*2
+	
+	t.circumPoint.x=Math.round(((A.x*A.x+A.y*A.y)*(B.y-C.y)+
+	                            (B.x*B.x+B.y*B.y)*(C.y-A.y)+
+	                            (C.x*C.x+C.y*C.y)*(A.y-B.y))/D)|0
+	t.circumPoint.y=Math.round(((A.x*A.x+A.y*A.y)*(C.x-B.x)+
+			                    (B.x*B.x+B.y*B.y)*(A.x-C.x)+
+			                    (C.x*C.x+C.y*C.y)*(B.x-A.x))/D)|0
+	var p = Q((a+b+c)*(a+b-c)*(a-b+c)*(-a+b+c))
+	attribs(t.circumCircle,{
+		"cx":t.circumPoint.x,
+		"cy":t.circumPoint.y,
+		"r" :Math.round(a*b*c/p)
 	})
 }
 
