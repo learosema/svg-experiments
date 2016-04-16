@@ -30,11 +30,11 @@ function raise(el,type){
 	el.dispatchEvent(evt)
 }
 
-function Point(x,y,role,title){
+function Point(x,y,role){
 	var t=this
 	if(!(this instanceof Point))return new Point(x,y,role)
 	if(role===undefined)role="draggable"
-	t.el=draw("circle",{"class":role,"title":title})
+	t.el=draw("circle",{"class":role})
 	svg.appendChild(this.el)
 	t.x=isNaN(x)?(R()*w)|0:x
 	t.y=isNaN(y)?(R()*h)|0:y
@@ -83,10 +83,9 @@ function Triangle(A,B,C){
 		} else {
 			t.p[i]=Point()
 		}
-		t.p[i].el.setAttribute("title",String.fromCharCode(65+i))
 	}
 	t.gravityPoint=Point((t.p[0].x+t.p[1].x+t.p[2].x)/3,
-					     (t.p[0].y+t.p[1].y+t.p[2].y)/3, "grav-point", "Gravity Point")
+					     (t.p[0].y+t.p[1].y+t.p[2].y)/3, "grav-point")
 	t.path=draw("path")
 	t.innerCircle=draw("circle",{"class":"inner"})
 
@@ -100,7 +99,7 @@ function Triangle(A,B,C){
 		})
 }
 
-//Object.defineProperty(Triangle.prototype,"
+//Object.defineProperty(Triangle.prototype,"c"
 
 Triangle.prototype.update=function(){
 	//      C
