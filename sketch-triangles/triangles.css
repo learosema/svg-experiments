@@ -11,13 +11,15 @@ svg{
 
 svg circle.grav-point {
 	fill: silver;
-	r: 5;
 }
 
 svg circle.draggable {
 	fill: red;
-	r: 10;
 	cursor: pointer;
+}
+
+svg circle.inner-point {
+	fill: salmon;
 }
 
 svg circle.inner {
@@ -25,6 +27,17 @@ svg circle.inner {
 	stroke: salmon;
 	fill: none;
 }
+
+svg circle.circum-point {
+	fill: lawngreen;
+}
+
+svg circle.circum {
+	stroke-width: 2;
+	stroke: lawngreen;
+	fill: none;
+}
+
 
 svg path {
 	stroke-width: 4;
