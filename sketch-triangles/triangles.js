@@ -156,6 +156,4 @@ Triangle.prototype.update=function(){
 }
 
 t=Triangle()
-// svg.onclick=function(e){
-//	if(e.target==svg)t=Triangle(t.p[1],t.p[2],Point(e.clientX,e.clientY))
-// }
+
