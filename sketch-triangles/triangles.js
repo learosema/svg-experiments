@@ -34,19 +34,30 @@ function Point(x,y,role){
 	var t=this
 	if(!(this instanceof Point))return new Point(x,y,role)
 	if(role===undefined)role="draggable"
-	t.el=draw("circle",{"class":role, "r":role=="draggable"?10:5})
+	t.el=draw("circle",{"class":role, "r":role=="draggable"?20:5})
 	svg.appendChild(this.el)
 	t.x=isNaN(x)?(R()*w)|0:x
 	t.y=isNaN(y)?(R()*h)|0:y
 	if(role=="draggable"){
 		t.el.addEventListener("mousedown",function(){
-			t.drag=true;	
+			t.drag=true	
 		})
 		window.addEventListener("mousemove",function(e){
 			if(t.drag)t.x=e.clientX,t.y=e.clientY
 		})
 		t.el.addEventListener("mouseup",function(){
-			t.drag=false;
+			t.drag=false
+		})
+		t.el.addEventListener("touchstart",function(e){
+			t.drag=true
+		})
+		t.el.addEventListener("touchmove",function(e){
+			if(t.drag)
+				t.x=e.touches[0].clientX,
+				t.y=e.touches[0].clientY
+		})
+		t.el.addEventListener("touchend",function(e){
+			t.drag=false
 		})
 	}
 }
