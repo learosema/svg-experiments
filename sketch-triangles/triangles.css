@@ -4,6 +4,16 @@ body {
 	overflow: hidden;
 }
 
+button {
+	position: absolute;
+	background: #639;
+	color: #fff;
+	border:1px solid #000;
+	font: 2vh sans-serif;
+	left:0;
+	top:0;
+}
+
 svg{
 	width:100vw;
 	height:100vh;
