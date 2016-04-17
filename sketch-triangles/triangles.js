@@ -34,7 +34,7 @@ function Point(x,y,role){
 	var t=this
 	if(!(this instanceof Point))return new Point(x,y,role)
 	if(role===undefined)role="draggable"
-	t.el=draw("circle",{"class":role, "r":role=="draggable"?12:5})
+	t.el=draw("circle",{"class":role, "r":role=="draggable"?13:5})
 	svg.appendChild(this.el)
 	t.x=isNaN(x)?(R()*w)|0:x
 	t.y=isNaN(y)?(R()*h)|0:y
