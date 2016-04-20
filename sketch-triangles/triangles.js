@@ -52,6 +52,7 @@ function Point(x,y,role){
 			t.drag=true
 		})
 		t.el.addEventListener("touchmove",function(e){
+			e.preventDefault()
 			if(t.drag)
 				t.x=e.touches[0].clientX,
 				t.y=e.touches[0].clientY
