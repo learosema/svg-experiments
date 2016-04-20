@@ -1,0 +1,23 @@
+body {
+	margin: 0;
+}
+
+svg {
+	position: absolute;
+	width: 40vh;
+	height: 40vh;
+	left: 50%;
+	top: 50%;
+	margin-left:-20vh;
+	margin-top:-20vh;
+}
+
+.cat-body {
+	fill: #444;
+	stroke: black;
+	stroke-width: 6;
+	stroke-linecap: round;
+}
+
+
+
