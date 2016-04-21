@@ -4,12 +4,8 @@ body {
 
 svg {
 	position: absolute;
-	width: 40vh;
-	height: 40vh;
-	left: 50%;
-	top: 50%;
-	margin-left:-20vh;
-	margin-top:-20vh;
+	width: 100vw;
+	height: 100vh;
 }
 
 .cat-body {
