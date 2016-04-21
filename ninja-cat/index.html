@@ -2,10 +2,12 @@
 <html>
 	<head>
 		<title>A try to recreate ninja cats via SVG</title>
-		<link rel="stylesheet" href="ninja.css"/>	
+		<link rel="stylesheet" href="ninja.css"/>
 	</head>
 	<body>
-		<svg viewBox="0,0,128,128">
+		<svg id="s" viewBox="0,0,128,128">
+			<symbol id="ninjaCat" viewBox="0,0,128,128">
+			<!-- meta name=generator value=vim ;) -->
 			<path d="M24,120 Q24,64 64,64 Q104,64 104,120 L24,120" fill="#000" stroke="black" stroke-width="6" stroke-linecap="square"/>
 			<path d="M32,24 Q32,80 64,80 Q96,80 96,24 L84,32 Q64,20 44,32Z" fill="#777" stroke="black" stroke-width="6" stroke-linecap="round"/>
 			<circle cx="50" cy="50" r="3" fill="black"/>
@@ -14,19 +16,19 @@
 			<path d="M57,57 l16,0 l-8,8Z" fill="salmon"/>
 			<circle cx="57" cy="64" r="7" fill="white"/>
 			<circle cx="71" cy="64" r="7" fill="white"/>
-			<path d="M37,48 Q37,32 64,28 Q91,32 91,48Z q0,8 8,8 l38,0 q8,0 8,-8 Q88,76 64,77 Q40,76 37,48" fill="#222" />
+			<path d="M37,48 Q37,32 64,28 Q91,32 91,48Z q0,8 8,8 l38,0 q8,0 8,-8 Q88,77 64,78 Q40,77 37,48" fill="#222" />
 
 
 			<!-- path id="sunglasses" d="M37,48 Q48,64 64,48 Q80,64 91,48Z" fill="#fa4" stroke-width="1" stroke="#000"/-->
 			<path d="M36,41 92,41 91,48 37,48Z" fill="red"/>
-			<path d="M88,42 q0,-6 6,-6 l2,0 l0,6Z " e=" l10,0 q0,6 -6,6Z" fill="red"/>
-			<path d="M95,45 l14,0 q12,0 12,-12 l-26,0" fill="red" stroke="black" stroke-width="6"/>	
-
-
+			<path d="M91,42 q0,-4 4,-4 l2,0 l0,4 l-6,0 M90,48 q0,4 2,4 l2,0 l0,-6Z" fill="red" />
+			<path d="M97,44 l12,0 q08,0 08,-8 l-20,0" fill="red" stroke="black" stroke-width="4"/>
+			<path d="M92,54 l12,0 q08,0 08,-8 l-20,0" fill="red" stroke="black" stroke-width="4"/>
 			<path d="M32,88 L73,117 L85,117 L35,82Z" fill="#555"/>
-
-
+			</symbol>
+			<use xlink:href="#ninjaCat"/>
 
 		</svg>
+		<script src="ninja.js"></script>
 	</body>
 </html>
