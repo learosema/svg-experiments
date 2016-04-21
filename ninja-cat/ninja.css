@@ -8,12 +8,10 @@ svg {
 	height: 100vh;
 }
 
-.cat-body {
-	fill: #444;
-	stroke: black;
-	stroke-width: 6;
-	stroke-linecap: round;
+.laser-eyes {
+	stroke: red;
+	mix-blend-mode: lighten;
+	-webkit-filter: blur(40px);
+
 }
-
-
 
