@@ -5,7 +5,7 @@ with(Math)R=random,Q=sqrt
 
 w=svg.width=innerWidth
 h=svg.height=innerHeight
-this.onresize=function(){
+onresize=function(){
 	if(w==innerWidth)return
 	w=svg.width=innerWidth
 	h=svg.height=innerHeight
@@ -106,6 +106,7 @@ function Triangle(A,B,C){
 	t.innerPoint  =Point(-999,-999, "inner-point")
 	t.innerCircle =draw("circle",{"class":"inner"})
 	t.circumPoint =Point(-999,-999, "circum-point")
+	t.circumRadius=0
 	t.circumCircle=draw("circle",{"class":"circum"})
 	here=svg.querySelector('.draggable')
 	svg.insertBefore(t.path,here)
@@ -148,13 +149,15 @@ Triangle.prototype.update=function(){
 	t.circumPoint.y=Math.round(((A.x*A.x+A.y*A.y)*(C.x-B.x)+
 			                    (B.x*B.x+B.y*B.y)*(A.x-C.x)+
 			                    (C.x*C.x+C.y*C.y)*(B.x-A.x))/D)|0
+	t.circumRadius =Math.round(a*b*c/p)
 	var p = Q((a+b+c)*(a+b-c)*(a-b+c)*(-a+b+c))
 	attribs(t.circumCircle,{
 		"cx":t.circumPoint.x,
 		"cy":t.circumPoint.y,
-		"r" :Math.round(a*b*c/p)
+		"r" :t.circumRadius,
 	})
 }
 
-t=Triangle()
+P=[]
+onclick=function(e){P.push(Point(e.clientX,e.clientY,"draggable"))}
 
