@@ -89,6 +89,19 @@ Point.prototype.toString=function(){
 	with(this)return x+","+y
 }
 
+function Circle(x,y,r){
+	var t=this
+	t.midPoint=Point(x,y,"draggable")
+	t.radius=r
+	t.midPoint.el.addEventListener("move", function(){
+	
+	})
+}
+
+Object.defineProperty(Circle.prototype,"x", {get:function(){},set:function(val){}})
+Object.defineProperty(Circle.prototype,"y", {get:function(){},set:function(val){}})
+Object.defineProperty(Circle.prototype,"r", {get:function(){},set:function(val){}})
+
 function Triangle(A,B,C){
 	var i,t=this,here
 	if(!(t instanceof Triangle))return new Triangle(A,B,C)
