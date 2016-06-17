@@ -30,88 +30,77 @@ function raise(el,type){
 	el.dispatchEvent(evt)
 }
 
-class Point {
-
-	constructor(x,y,role) {
-		let t=this
-		if(!(this instanceof Point))return new Point(x,y,role)
-		if(role===undefined)role="draggable"
-		t.el=draw("circle",{"class":role, "r":role=="draggable"?13:5})
-		svg.appendChild(this.el)
-		t.x=isNaN(x)?(R()*w)|0:x
-		t.y=isNaN(y)?(R()*h)|0:y
-		if(role=="draggable"){
-			t.el.addEventListener("mousedown",function(){
-				t.drag=true	
-			})
-			window.addEventListener("mousemove",function(e){
-				if(t.drag)t.x=e.clientX,t.y=e.clientY
-			})
-			t.el.addEventListener("mouseup",function(){
-				t.drag=false
-			})
-			t.el.addEventListener("touchstart",function(e){
-				t.drag=true
-			})
-			t.el.addEventListener("touchmove",function(e){
-				e.preventDefault()
-				if(t.drag)
-					t.x=e.touches[0].clientX,
-					t.y=e.touches[0].clientY
-			})
-			t.el.addEventListener("touchend",function(e){
-				t.drag=false
-			})
-		}
-	}
-
-	get x() {
-		return parseFloat(this.el.getAttribute("cx"));
-	}
-
-	set x() {
-		this.el.setAttribute("cx",val)
-		raise(this.el,"move")
-	}
-
-	get y() {
-		return parseFloat(this.el.getAttribute("cx"))
-	}
-
-	set y() {
-		this.el.setAttribute("cy",val)
-		raise(this.el,"move")
-	}
-
-	distanceTo(P) {
-		let dx=P.x-this.x
-		let dy=P.y-this.y
-		return Q(dx*dx+dy*dy)
-	}
-
-	midPointTo(P) {
-		return {x:this.x+(P.x-this.x)/2,
-		    y:this.y+(P.y-this.y)/2}
+function Point(x,y,role){
+	var t=this
+	if(!(this instanceof Point))return new Point(x,y,role)
+	if(role===undefined)role="draggable"
+	t.el=draw("circle",{"class":role, "r":role=="draggable"?13:5})
+	svg.appendChild(this.el)
+	t.x=isNaN(x)?(R()*w)|0:x
+	t.y=isNaN(y)?(R()*h)|0:y
+	if(role=="draggable"){
+		t.el.addEventListener("mousedown",function(){
+			t.drag=true	
+		})
+		window.addEventListener("mousemove",function(e){
+			if(t.drag)t.x=e.clientX,t.y=e.clientY
+		})
+		t.el.addEventListener("mouseup",function(){
+			t.drag=false
+		})
+		t.el.addEventListener("touchstart",function(e){
+			t.drag=true
+		})
+		t.el.addEventListener("touchmove",function(e){
+			e.preventDefault()
+			if(t.drag)
+				t.x=e.touches[0].clientX,
+				t.y=e.touches[0].clientY
+		})
+		t.el.addEventListener("touchend",function(e){
+			t.drag=false
+		})
 	}
 }
+
+Object.defineProperty(Point.prototype,"x",{
+	get:function(){return parseFloat(this.el.getAttribute("cx"))},
+	set:function(val){this.el.setAttribute("cx",val);raise(this.el,"move")}
+})
+
+Object.defineProperty(Point.prototype,"y",{
+	get:function(){return parseFloat(this.el.getAttribute("cy"))},
+	set:function(val){this.el.setAttribute("cy",val);raise(this.el,"move")}
+})
+
+Point.prototype.distanceTo=function(P,dx,dy) {
+	dx=P.x-this.x
+	dy=P.y-this.y
+	return Q(dx*dx+dy*dy)
+}
+
+Point.prototype.midPointTo=function(P,dx,dy) {
+	return {x:this.x+(P.x-this.x)/2,
+		    y:this.y+(P.y-this.y)/2}
+}
+
 
 Point.prototype.toString=function(){
 	with(this)return x+","+y
 }
 
-class Circle {
-	constructor(x,y,r) {
-		this._center=Point(x,y,"draggable")
-		this._radius=r
-	}
-	get center() { return this._center }
+function Circle(x,y,r){
+	var t=this
+	t.midPoint=Point(x,y,"draggable")
+	t.radius=r
+	t.midPoint.el.addEventListener("move", function(){
 	
-	get x() { return this.center.x }
-	set x(val) { this.center.x = val }
-
-	get y() { return center.x }
-	set y(val) { center.x = val }
+	})
 }
+
+Object.defineProperty(Circle.prototype,"x", {get:function(){},set:function(val){}})
+Object.defineProperty(Circle.prototype,"y", {get:function(){},set:function(val){}})
+Object.defineProperty(Circle.prototype,"r", {get:function(){},set:function(val){}})
 
 function Triangle(A,B,C){
 	var i,t=this,here
