@@ -1,4 +1,6 @@
 "use strict"
+"oh so strict"
+
 const w3 = "http://www.w3.org/"
 const svgNS = w3 + "2000/svg"
 const xlinkNS = w3 + "1999/xlink"
