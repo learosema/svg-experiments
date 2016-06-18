@@ -66,20 +66,20 @@ class Point {
 		let t = this
 		if (!(t instanceof Point)) return new Point(x,y,role)
 		if (role===undefined) role="hidden"
-		t.el = create("circle", {"class": role, "r": role=="draggable"?13:5})
-		svg.appendChild(this.el)
-		t.x=isNaN(x)?(R()*w)|0:x
-		t.y=isNaN(y)?(R()*h)|0:y
+		svg.appendChild(t.el = create("circle", {"class": role, r: role=="draggable"?13:5})) 
+		// I'd prefer to define the radius of the point via css, but this doesn't work in Edge :(
+		t.x=isNaN(x) ? (R()*w)|0 : x
+		t.y=isNaN(y) ? (R()*h)|0 : y
 		if(role=="draggable")addDragEvents(t);
 	}
 
 	get x() {
-		return parseFloat(this.el.getAttribute("cx"));
+		return parseFloat(this.el.getAttribute("cx"))
 	}
 
 	set x() {
-		this.el.setAttribute("cx",val)
-		raise(this.el,"move")
+		this.el.setAttribute("cx", val)
+		raise(this.el, "move")
 	}
 
 	get y() {
@@ -87,8 +87,8 @@ class Point {
 	}
 
 	set y() {
-		this.el.setAttribute("cy",val)
-		raise(this.el,"move")
+		this.el.setAttribute("cy", val)
+		raise(this.el, "move")
 	}
 
 	distanceTo(P) {
@@ -108,16 +108,17 @@ class Point {
 
 class Circle {
 	constructor(x,y,r) {
-		this._center=Point(x,y,"draggable")
-		this._radius=r
+		this.center = Point(x, y, "draggable")
+		this.el = create("circle", {cx: x, cy: y, r: r})
 	}
-	get center() { return this._center }
 	
 	get x() { return this.center.x }
 	set x(val) { this.center.x = val }
 
 	get y() { return this.center.x }
 	set y(val) { this.center.x = val }
+
+
 }
 
 class Triangle {
