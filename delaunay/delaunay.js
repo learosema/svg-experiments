@@ -6,6 +6,7 @@ const svgNS = w3 + "2000/svg"
 const xlinkNS = w3 + "1999/xlink"
 const M=Math, R=M.random, Q=M.sqrt
 
+
 let w = svg.width  = innerWidth
 let h = svg.height = innerHeight
 
