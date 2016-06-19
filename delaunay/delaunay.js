@@ -36,26 +36,26 @@ const raise = (el, type) => {
 }
 
 const addDragEvents = (t) => {
-	t.el.addEventListener("mousedown",function(){
-		t.drag=true	
+	t.el.addEventListener("mousedown", function(){
+		t.drag = true	
 	})
 	window.addEventListener("mousemove",function(e){
-		if (t.drag) t.x=e.clientX, t.y=e.clientY
+		if (t.drag) t.x = e.clientX, t.y = e.clientY
 	})
 	t.el.addEventListener("mouseup",function(){
-		t.drag=false
+		t.drag = false
 	})
 	t.el.addEventListener("touchstart",function(e){
-		t.drag=true
+		t.drag = true
 	})
 	t.el.addEventListener("touchmove",function(e){
 		e.preventDefault()
-		if(t.drag)
-			t.x=e.touches[0].clientX,
-			t.y=e.touches[0].clientY
+		if (t.drag)
+			t.x = e.touches[0].clientX,
+			t.y = e.touches[0].clientY
 	})
 	t.el.addEventListener("touchend",function(e){
-		t.drag=false
+		t.drag = false
 	})
 }
 
@@ -70,7 +70,7 @@ class Point {
 		// I'd prefer to define the radius of the point via css, but this doesn't work in Edge :(
 		t.x=isNaN(x) ? (R()*w)|0 : x
 		t.y=isNaN(y) ? (R()*h)|0 : y
-		if(role=="draggable")addDragEvents(t);
+		if(role == "draggable") addDragEvents(t);
 	}
 
 	get x() {
@@ -110,6 +110,7 @@ class Circle {
 	constructor(x,y,r) {
 		this.center = Point(x, y, "draggable")
 		this.el = create("circle", {cx: x, cy: y, r: r})
+		svg.appendChild(this.el)
 	}
 	
 	get x() { return this.center.x }
@@ -124,27 +125,27 @@ class Circle {
 class Triangle {
 	constructor(A,B,C) {
 		let i,t=this,here
-		if(!(t instanceof Triangle))return new Triangle(A,B,C)
+		if(!(t instanceof Triangle)) return new Triangle(A,B,C)
 		t.p=[A,B,C]
-		for(i=3;i--;){
-			if(t.p[i] instanceof Point)continue
-			if(t.p[i] instanceof Array) {
+		for(i=3; i--;){
+			if (t.p[i] instanceof Point) continue
+			if (t.p[i] instanceof Array) {
 				t.p[i]=Point(t.p[i][0],t.p[i][1])
 			} else {
 				t.p[i]=Point()
 			}
 		}
 		t.path=draw("path")
-		t.gravityPoint=Point(-999,-999, "grav-point")
-		t.innerPoint  =Point(-999,-999, "inner-point")
-		t.innerCircle =draw("circle",{"class":"inner"})
-		t.circumPoint =Point(-999,-999, "circum-point")
-		t.circumRadius=0
-		t.circumCircle=draw("circle",{"class":"circum"})
+		t.gravityPoint = Point(-999, -999, "grav-point")
+		t.innerPoint   = Point(-999, -999, "inner-point")
+		t.innerCircle  = draw("circle", {"class":"inner"})
+		t.circumPoint  = Point(-999, -999, "circum-point")
+		t.circumRadius = 0
+		t.circumCircle=draw("circle",{"class": "circum"})
 		here=svg.querySelector('.draggable')
-		svg.insertBefore(t.path,here)
-		svg.insertBefore(t.innerCircle,here)
-		svg.insertBefore(t.circumCircle,here)
+		svg.insertBefore(t.path, here)
+		svg.insertBefore(t.innerCircle, here)
+		svg.insertBefore(t.circumCircle, here)
 		t.update()
 		for(i=3;i--;)
 			t.p[i].el.addEventListener("move", function(e){
