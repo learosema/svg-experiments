@@ -62,10 +62,10 @@ const addDragEvents = (t) => {
 
 class Point {
 
-	constructor(x,y,role) {
+	constructor(x, y, role) {
 		let t = this
-		if (!(t instanceof Point)) return new Point(x,y,role)
-		if (role===undefined) role="hidden"
+		if (!(t instanceof Point)) return new Point(x, y, role)
+		if (role === undefined) role = "hidden"
 		svg.appendChild(t.el = create("circle", {"class": role, r: role=="draggable"?13:5})) 
 		// I'd prefer to define the radius of the point via css, but this doesn't work in Edge :(
 		t.x=isNaN(x) ? (R()*w)|0 : x
@@ -107,7 +107,7 @@ class Point {
 }
 
 class Circle {
-	constructor(x,y,r) {
+	constructor(x, y, r) {
 		this.center = Point(x, y, "draggable")
 		this.el = create("circle", {cx: x, cy: y, r: r})
 		svg.appendChild(this.el)
@@ -123,7 +123,7 @@ class Circle {
 }
 
 class Triangle {
-	constructor(A,B,C) {
+	constructor(A, B, C) {
 		let i,t=this,here
 		if(!(t instanceof Triangle)) return new Triangle(A,B,C)
 		t.p=[A,B,C]
@@ -147,10 +147,8 @@ class Triangle {
 		svg.insertBefore(t.innerCircle, here)
 		svg.insertBefore(t.circumCircle, here)
 		t.update()
-		for(i=3;i--;)
-			t.p[i].el.addEventListener("move", function(e){
-				t.update()
-			})
+		for(i=3; i--;)
+			t.p[i].el.addEventListener("move", (e) => t.update())
 	}
 
 	update() {
@@ -193,5 +191,5 @@ class Triangle {
 	}
 }
 
-onclick=function(e){P.push(Point(e.clientX,e.clientY,"draggable"))}
+onclick=(e) => P.push(Point(e.clientX,e.clientY,"draggable"))
 
