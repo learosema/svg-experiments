@@ -109,7 +109,7 @@ class Point {
 class Circle {
 	constructor(x, y, r) {
 		this.center = Point(x, y, "draggable")
-		this.el = create("circle", {cx: x, cy: y, r: r})
+		this.el = create("circle", {"class":,cx: x, cy: y, r: r})
 		svg.appendChild(this.el)
 	}
 	
