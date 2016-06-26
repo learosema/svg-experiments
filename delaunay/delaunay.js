@@ -4,7 +4,7 @@
 const w3 = "http://www.w3.org/"
 const svgNS = w3 + "2000/svg"
 const xlinkNS = w3 + "1999/xlink"
-const M=Math, R=M.random, Q=M.sqrt
+const M = Math, R = M.random, Q = M.sqrt
 
 
 let w = svg.width  = innerWidth
@@ -95,6 +95,12 @@ class Point {
 		let dx = P.x - this.x
 		let dy = P.y - this.y
 		return Q(dx*dx + dy*dy)
+	}
+
+	isInCircle(C) {
+		let dx = C.x - this.x
+		let dy = C.y - this.y
+		return Q(dx*dx + dy*dy) < Q(C.r)
 	}
 
 	createMidPointTo(P) {
