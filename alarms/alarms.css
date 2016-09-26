@@ -1,0 +1,33 @@
+body {
+	overflow: hidden;
+	margin: 0;
+	background: #333;
+}
+
+svg {
+	width: 100vw;
+	height: 100vh;
+}
+
+svg circle.noisy {
+	fill:#ccc;
+	r: 20;	
+	cursor: pointer;
+}
+
+svg circle.noisy-enabled {
+	fill:red;
+	animation: make-some-noise 0.2s infinite alternate;
+}
+
+
+@keyframes make-some-noise {
+	0% {
+		r: 20;
+	}
+
+	100% {
+		r: 25;
+		fill: salmon;
+	}
+}
