@@ -89,7 +89,7 @@ class Point {
 		this.el.addEventListener("touchstart",function(e){
 			this.drag=true
 		})
-		this.el.addEventListener("touchmove",function(e){
+		window.addEventListener("touchmove",function(e){
 			e.preventDefault()
 			if(t.drag)
 				this.x=e.touches[0].clientX,
