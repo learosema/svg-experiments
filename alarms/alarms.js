@@ -55,6 +55,7 @@ class Point {
 		}
 		this.carrier.gain.gain.value = 1.0;
 		this.modulator.gain.gain.value = 500.0;
+		if (random() < .5) this.modulator.osc.type="sawtooth";
 		this.carrier.osc.frequency.value = round(maxCarrierFrequency * x/w);
 		this.modulator.osc.frequency.value = round(maxModulatorFrequency * y/h);
 		this.carrier.osc.connect(this.carrier.gain);               // carOsc.connect(carGain);
