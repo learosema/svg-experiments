@@ -37,12 +37,21 @@ const raise = (el,type) => {
 	el.dispatchEvent(evt)
 }
 
+
+points = {};
+
+
 class Point {
 	
+	static instanceOf(el) {
+		return points[el];
+	}
+
 	constructor(x,y) {
 		if (isNaN(x)) x = random() * w;
 		if (isNaN(y)) y = random() * h;
 		this.el = draw("circle", {"class": "noisy", "cx": x, "cy": y, "r": 20})
+		points[el] = this;
 		this.volume = AC.createGain();
 		this.volume.gain.value = 0.0;
 		this.carrier = {
@@ -67,9 +76,6 @@ class Point {
 		this.modulator.osc.start();
 		this.drag = false;
 		svg.appendChild(this.el);
-		this.el.addEventListener("dblclick", (e) => {
-			this.enabled=!this.enabled; 
-		})
 		this.el.addEventListener("mousedown", (e) => { this.drag = true; })
 		this.el.addEventListener("mouseup", (e) => { this.drag = false; })	
 		window.addEventListener("mousemove", (e) => {
@@ -118,4 +124,8 @@ window.addEventListener('resize', setViewBox);
 setViewBox()
 window.addEventListener('click', (e) => {
 	if (e.target === svg) new Point(e.clientX, e.clientY);
+	if (e.target.nodeName === "CIRCLE") {
+		const p = Point.instanceOf(e.target)
+		p.enabled = !p.enabled;
+	}
 })
