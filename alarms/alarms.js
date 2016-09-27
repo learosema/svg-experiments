@@ -85,7 +85,19 @@ class Point {
 				this.x=e.clientX;
 				this.y=e.clientY;
 			}
-		})	
+		})
+		this.el.addEventListener("touchstart",function(e){
+			this.drag=true
+		})
+		this.el.addEventListener("touchmove",function(e){
+			e.preventDefault()
+			if(t.drag)
+				this.x=e.touches[0].clientX,
+				this.y=e.touches[0].clientY
+		})
+		this.el.addEventListener("touchend",function(e){
+			this.drag=false
+		})
 	}
 
 	set enabled(val) {
@@ -126,7 +138,7 @@ window.addEventListener('resize', setViewBox);
 setViewBox()
 window.addEventListener('click', (e) => {
 	if (e.target === svg) new Point(e.clientX, e.clientY);
-	if (e.target.nodeName === "CIRCLE") {
+	if (/circle/i.test(e.target.nodeName)) {
 		const p = Point.instanceOf(e.target)
 		p.enabled = !p.enabled;
 	}
