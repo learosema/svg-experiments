@@ -91,7 +91,7 @@ class Point {
 		})
 		window.addEventListener("touchmove",function(e){
 			e.preventDefault()
-			if(t.drag)
+			if(this.drag)
 				this.x=e.touches[0].clientX,
 				this.y=e.touches[0].clientY
 		})
