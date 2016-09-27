@@ -86,16 +86,17 @@ class Point {
 				this.y=e.clientY;
 			}
 		})
-		this.el.addEventListener("touchstart",function(e){
+		this.el.addEventListener("touchstart", (e) => {
 			this.drag=true
 		})
-		window.addEventListener("touchmove",function(e){
+		window.addEventListener("touchmove",(e) => {
 			e.preventDefault()
-			if(this.drag)
-				this.x=e.touches[0].clientX,
+			if(this.drag) {
+				this.x=e.touches[0].clientX
 				this.y=e.touches[0].clientY
+			}
 		})
-		this.el.addEventListener("touchend",function(e){
+		this.el.addEventListener("touchend", (e) => {
 			this.drag=false
 		})
 	}
