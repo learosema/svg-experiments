@@ -38,20 +38,22 @@ const raise = (el,type) => {
 }
 
 
-points = {};
+const points = [];
+
 
 
 class Point {
 	
 	static instanceOf(el) {
-		return points[el];
+		return points[el.id.slice(6)|0];
 	}
 
 	constructor(x,y) {
 		if (isNaN(x)) x = random() * w;
 		if (isNaN(y)) y = random() * h;
-		this.el = draw("circle", {"class": "noisy", "cx": x, "cy": y, "r": 20})
-		points[el] = this;
+		this.id = points.length;
+		this.el = draw("circle", {"class": "noisy", "cx": x, "cy": y, "r": 20, "id": "point_"+this.id})
+		points[this.id] = this;
 		this.volume = AC.createGain();
 		this.volume.gain.value = 0.0;
 		this.carrier = {
