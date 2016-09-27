@@ -90,7 +90,7 @@ class Point {
 			this.drag=true
 		})
 		window.addEventListener("touchmove",(e) => {
-			e.preventDefault()
+			// e.preventDefault()
 			if(this.drag) {
 				this.x=e.touches[0].clientX
 				this.y=e.touches[0].clientY
