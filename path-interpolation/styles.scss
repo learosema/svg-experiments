@@ -9,13 +9,13 @@ body {
 }
 
 svg {
-	display: none;
 	width: 100vw; 
 	height: 100vh;
 }
 
-@function pX($point) { @return nth($point,1) }
-@function pY($point) { @return nth($point,2) }
+@function pX($point) { @return nth($point,1) };
+
+@function pY($point) { @return nth($point,2) };
 
 @function interpolate($p1, $p2, $num) {
 	$x1: pX($p1);	$y1: pY($p1);
@@ -27,7 +27,7 @@ svg {
 		$result: append($result, ($x1+$i*$mx, $y1+$i*$my));	
 	}
 	@return $result;
-}
+};
 
 @function pathDef($def, $numPoints) {
 	// returns a path definition with 
@@ -41,7 +41,7 @@ svg {
 	@for $i from 2 through $numEdges {
 		
 	} 
-}
+};
 
 .testPath {
 	d: path('M0,0');
@@ -52,17 +52,17 @@ path {
 	stroke: white;
 	stroke-width: 1;
 	line-cap: round;
-}
+};
 
 path:hover {
 	d: path("M0,0 l100,0 l-100,-100 l0,100");
-}
+};
 
 circle {
 	stroke: mediumseagreen;
 	fill: none;
 	stroke-width: 2;
-}
+};
 
 line {
 	stroke: deeppink;
