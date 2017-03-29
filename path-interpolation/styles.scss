@@ -1,0 +1,69 @@
+---
+---
+
+body {
+	margin: 0;
+	overflow: hidden;
+	background: #222;
+	color: #fff;
+}
+
+svg {
+	display: none;
+	width: 100vw; 
+	height: 100vh;
+}
+
+@function pX($point) { @return nth($point,1) }
+@function pY($point) { @return nth($point,2) }
+
+@function interpolate($p1, $p2, $num) {
+	$x1: pX($p1);	$y1: pY($p1);
+	@if ($num < 2) { $num: 2 }
+	$mx: (pX($p2) - $x1) / ($num - 1);
+	$my: (pY($p2) - $y1) / ($num - 1);
+	$result: ();
+	@for $i from 0 through $num - 1 {
+		$result: append($result, ($x1+$i*$mx, $y1+$i*$my));	
+	}
+	@return $result;
+}
+
+@function pathDef($def, $numPoints) {
+	// returns a path definition with 
+	// interpolations from an array of points (= $def)
+	$numEdges: length($def);
+	// TODO: if more $numPoints, then extend that
+	// input array to be $numPoints long
+	$pointsPerEdge: $numPoints / $numEdges;
+	$theRest: $numPoints % $numEdges;
+	$result: ();
+	@for $i from 2 through $numEdges {
+		
+	} 
+}
+
+.testPath {
+	d: path('M0,0');
+}
+
+path {
+	transition: 0.2s;
+	stroke: white;
+	stroke-width: 1;
+	line-cap: round;
+}
+
+path:hover {
+	d: path("M0,0 l100,0 l-100,-100 l0,100");
+}
+
+circle {
+	stroke: mediumseagreen;
+	fill: none;
+	stroke-width: 2;
+}
+
+line {
+	stroke: deeppink;
+}
