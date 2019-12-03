@@ -1,0 +1,22 @@
+{
+  "name": "svg-experiments",
+  "version": "1.0.0",
+  "description": "Various SVG experiments",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terabaud/svg-experiments.git"
+  },
+  "author": "Lea Rosema",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/terabaud/svg-experiments/issues"
+  },
+  "homepage": "https://github.com/terabaud/svg-experiments#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
