@@ -1,9 +1,10 @@
 # svg-experiments
 
-My first experiments with svg animations, using javascript
+My first experiments with svg animations, using javascript, or CSS.
 
-
-* [alarms](https://terabaud.github.io/svg-experiments/alarms/)
-* [flowers](https://terabaud.github.io/svg-experiments/flowers/)
-* [ninja cat](https://terabaud.github.io/svg-experiments/ninja-cat/)
-* [sketch triangles](https://terabaud.github.io/svg-experiments/sketch-triangles/)
+* [alarms](/alarms/)
+* [flowers](/flowers/)
+* [ninja cat](/ninja-cat/)
+* [sketch triangles](/sketch-triangles/)
+* [virus](/virus/)
+* [toggle dark mode](/darkmode/)

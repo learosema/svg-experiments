@@ -1,0 +1,56 @@
+body {
+  --bg: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  height: 100vh;
+  background: var(--bg);
+  transition: background 400ms ease;
+}
+
+body.darkmode {
+  --bg: #222;
+}
+
+svg {
+  width: 90vmin;
+  height: 90vmin;
+}
+
+/** light mode */
+.darkmode-icon .moon-shadow {
+  transition: cx 400ms ease;
+}
+.darkmode-icon .rays {
+  transition: stroke-dashoffset 400ms ease;
+  stroke-dashoffset: 24;
+  stroke-dasharray: 12;
+}
+.darkmode-icon .sun {
+  fill: #ff7;
+}
+.darkmode-icon .moon-shadow {
+  fill: black;
+}
+.darkmode-icon .rays, .darkmode-icon .sun-stroke {
+  stroke: #777;
+  fill: none;
+}
+
+/** dark mode */
+.darkmode-checkbox:checked ~ label {
+  --bg: #222;
+  cursor: pointer;
+}
+.darkmode-checkbox:checked ~ label .darkmode-icon .moon-shadow {
+  cx: 40;
+}
+.darkmode-checkbox:checked ~ label .darkmode-icon .rays {
+  stroke-dashoffset: 12;
+  stroke-dasharray: 12;
+}
+
+.darkmode-checkbox {
+  display: none;
+}

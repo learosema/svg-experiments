@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <title>Cute Evil Virus</title>
+</head>
+<body>
+  <svg viewBox="-32 -32 64 64">
+    <g id="virus">
+      <circle r="3" cy="-25" fill="mediumseagreen" />
+      <circle r="3" cx="17.67" cy="-17.67" fill="mediumseagreen" />
+      <circle r="3" cx="25" fill="mediumseagreen" />
+      <circle r="3" cx="17.67" cy="17.67" fill="mediumseagreen" />
+      <circle r="3" cy="25" fill="mediumseagreen" />
+      <circle r="3" cx="-17.67" cy="17.67" fill="mediumseagreen" />
+      <circle r="3" cx="-25" fill="mediumseagreen" />
+      <circle r="3" cx="-17.67" cy="-17.67" fill="mediumseagreen" />
+      <circle r="25" fill="mediumseagreen" />
+      <g id="left_eye">
+        <circle r="8" cx="-9" cy="-10" fill="white" />
+        <circle r="5" cx="-9" cy="-10" fill="black" />
+        <circle r="2" cx="-8" cy="-11" fill="white" />
+      </g>
+      <g id="right_eye">
+        <circle r="8" cx="9" cy="-10" fill="white" />
+        <circle r="5" cx="9" cy="-10" fill="black" />
+        <circle r="2" cx="8" cy="-11" fill="white" />
+      </g>
+      <clipPath id="mouth">
+        <path class="mouth-1" />
+      </clipPath>
+      <path class="mouth-1" fill="#000" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="4" cy="18" r="9" fill="deeppink" clip-path="url(#mouth)" stroke="#000" />
+      <circle cx="-4" cy="18" r="9" fill="deeppink" clip-path="url(#mouth)" stroke="#000" />
+  
+      <path class="upper-teeth" d="M-4.5 5.5 q0 3 2 3 q 2 0 3 -3Z" fill="#fff" clip-path="url(#mouth)" stroke-width=".5" stroke="#000" />
+      <path class="upper-teeth" d="M1 5.5 q0 3 2 3 q 2 0 3 -3Z" fill="#fff" clip-path="url(#mouth)" stroke="#000" stroke-width=".5" />
+      <path d="M2.4 13.5 q0 -3 2 -3 q2 0 2 3" fill="#fff" stroke="#000" stroke-width=".5" clip-path="url(#mouth)" />
+      <path d="M-7.4 13.5 q0 -3 2 -3 q2 0 2 3" fill="#fff" stroke="#000" stroke-width=".5" clip-path="url(#mouth)" />
+  
+      <clipPath id="clip_eye_left">
+        <circle r="8" cx="-9" cy="-10" />
+      </clipPath>
+  
+      <clipPath id="clip_eye_right">
+        <circle r="8" cx="9" cy="-10" stroke="#000" />
+      </clipPath>
+  
+      <circle class="lid" cx="-14" cy="-30" r="18" clip-path="url(#clip_eye_left)" fill="darkseagreen" stroke="#000" />
+      <circle class="lid" cx="14" cy="-30" r="18" clip-path="url(#clip_eye_right)" fill="darkseagreen" stroke="#000" />
+  
+      <circle r="8" cx="9" cy="-10" fill="none" stroke="#000" />
+      <circle r="8" cx="-9" cy="-10" fill="none" stroke="#000" />
+    </g>
+  </svg>
+</body>
+</html>
