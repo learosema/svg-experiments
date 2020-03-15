@@ -8,3 +8,5 @@ My first experiments with svg animations, using javascript, or CSS.
 * [sketch triangles](/sketch-triangles/)
 * [virus](/virus/)
 * [toggle dark mode](/darkmode/)
+* [stroke-dasharray demo](/stroke-dasharray/)
+* [recursive pattern](/recursive-pattern/)

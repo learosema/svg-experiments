@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <title>Recursive pattern</title>
+</head>
+
+<body>
+
+  <svg viewBox="0 0 600 600">
+    <defs>
+      <symbol id="star" viewBox="0 0 600 600">
+        <path d="M200,0 l0,200 l60,0 l40,-50Z"></path>
+        <path d="M400,0 l0,200 l-60,0 l-40,-50Z"></path>
+        <path d="M0,200 l200,0 l0,60 l-50,40Z"></path>
+        <path d="M0,400 l200,0 l0,-60 l-50,-40Z"></path>
+        <path d="M400,200 l0,60 l50,40 l150,-100Z"></path>
+        <path d="M400,400 l0,-60 l50,-40 l150,100Z"></path>
+        <path d="M200,400 l60,0 l40,50 l-100,150Z"></path>
+        <path d="M400,400 l-60,0 l-40,50 l100,150Z"></path>
+      </symbol>
+      <pattern id="starFractal" viewBox="0 0 600 600" width="50%" height="50%">
+        <g transform-origin="50% 50%" transform="rotate(45)">
+          <use href="#star"></use>
+          <g class="rotate" transform-origin="50% 50%">
+            <use class="white" href="#star" width="200" height="200" x="200" y="200" transform-origin="50% 50%"
+              transform="rotate(45)"></use>
+            <use class="blue" href="#star" width="67" height="67" x="266.5" y="266.5" transform-origin="50% 50%"></use>
+          </g>
+        </g>
+      </pattern>
+      <pattern id="starFractalRecursion" viewBox="0 0 600 600" width="50%" height="50%">
+        <g transform-origin="50% 50%">
+          <rect x="0" y="0" width="600" height="600" fill="url(#starFractal)"></rect>
+          <rect x="225" y="-75" width="150" height="150" fill="url(#starFractal)"></rect>
+          <rect x="-75" y="-75" width="150" height="150" fill="url(#starFractal)"></rect>
+          <rect x="525" y="-75" width="150" height="150" fill="url(#starFractal)"></rect>
+          <rect x="281.5" y="-18.5" width="37.5" height="37.5" fill="url(#starFractal)"></rect>
+          <rect x="581.5" y="-18.5" width="37.5" height="37.5" fill="url(#starFractal)"></rect>
+          <rect x="-18.5" y="-18.5" width="37.5" height="37.5" fill="url(#starFractal)"> </rect>
+          <rect x="225" y="225" width="150" height="150" fill="url(#starFractal)"></rect>
+          <rect x="-75" y="225" width="150" height="150" fill="url(#starFractal)"></rect>
+          <rect x="525" y="225" width="150" height="150" fill="url(#starFractal)"></rect>
+          <rect x="281.5" y="281.5" width="37.5" height="37.5" fill="url(#starFractal)"></rect>
+          <rect x="581.5" y="281.5" width="37.5" height="37.5" fill="url(#starFractal)"></rect>
+          <rect x="-18.5" y="281.5" width="37.5" height="37.5" fill="url(#starFractal)"></rect>
+          <rect x="225" y="525" width="150" height="150" fill="url(#starFractal)"> </rect>
+          <rect x="-75" y="525" width="150" height="150" fill="url(#starFractal)"></rect>
+          <rect x="525" y="525" width="150" height="150" fill="url(#starFractal)"></rect>
+          <rect x="281.5" y="581.5" width="37.5" height="37.5" fill="url(#starFractal)"></rect>
+          <rect x="581.5" y="581.5" width="37.5" height="37.5" fill="url(#starFractal)"></rect>
+          <rect x="-18.5" y="581.5" width="37.5" height="37.5" fill="url(#starFractal)"> </rect>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="600" height="600" fill="url(#starFractalRecursion)"></rect>
+  </svg>
+</body>
+
+</html>

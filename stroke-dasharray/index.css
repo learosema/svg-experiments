@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #222;
+}
+
+svg {
+  display: block;
+  width: 100vmin;
+  height: 100vmin;
+}
+
+path.stroke--transition {
+  transition: stroke-dashoffset 4s linear;
+}
+
+path.stroke--reset {
+  stroke-dashoffset: 0!important;
+}
