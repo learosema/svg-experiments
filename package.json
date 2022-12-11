@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/terabaud/svg-experiments#readme",
   "devDependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.3"
   }
 }
